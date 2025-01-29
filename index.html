@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reusable Progress Circle</title>
+    <link rel="stylesheet" href="component/progress-circle.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<h2 class="title">Progress</h2>
+
+<div id="progress-wrapper"></div>
+
+<div class="controls">
+    <div class="input-group">
+        <input type="number" id="value" min="0" max="100" value="1"  autofocus>
+        <label for="value">Value</label>
+    </div>
+
+    <div class="input-group">
+        <label class="progress_switcher switcher">
+            <input id="animate" class="switcher__input" type="checkbox">
+            <span class="switcher__slider"></span>
+        </label>
+        <label for="animate">Animate</label>
+    </div>
+
+
+    <div class="input-group">
+        <label class="progress_switcher switcher">
+            <input id="hide" class="switcher__input" type="checkbox">
+            <span class="switcher__slider"></span>
+        </label>
+        <label for="hide">Hide</label>
+    </div>
+</div>
+</body>
+<script src="component/progress-circle.js"></script>
+<script src="index.js"></script>
+</html>
