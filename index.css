@@ -12,6 +12,7 @@
     --circle-bg-color: rgba(108, 92, 231, 0.2);
     --input-focus-color: rgba(21, 156, 228, 0.4);
     --stroke-width: 10;
+    --input-width: 60px;
 }
 
 body {
@@ -46,10 +47,44 @@ body {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    position: relative;
+}
+
+
+.tooltip {
+    position: absolute;
+    bottom: calc(100% + 0.5rem); /* Располагаем над input */
+    left: calc(var(--input-width) / 2);
+    transform: translateX(-50%);
+    background-color: red;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    display: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: red transparent transparent transparent;
+}
+
+.error + .tooltip {
+    display: block;
+    opacity: 1;
 }
 
 input {
-    width: 60px;
+    width: var(--input-width);
     padding: 8px;
     border: 2px solid #ddd;
     border-radius: 500px;
@@ -60,11 +95,23 @@ input#value {
     font-size: 16px;
     text-align: center;
 
-    &:focus {
+
+    &.error {
+        outline: none;
+        box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7);
+    }
+
+    &:not(.error):focus {
         outline: none;
         box-shadow: 0 0 0 3px var(--input-focus-color);
     }
 }
+
+
+.error {
+    box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7);
+}
+
 
 input#value::-webkit-outer-spin-button,
 input#value::-webkit-inner-spin-button {

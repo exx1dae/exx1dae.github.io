@@ -6,8 +6,8 @@ class ProgressCircle {
       color: options.color || "#007bff",
       bgColor: options.bgColor || "#ddd",
       value: options.value || 0,
-      isAnimated: options.isAnimated || false,
-      isHidden: options.isHidden || false,
+      animated: options.animated || false,
+      hidden: options.hidden || false,
     };
 
     this.radius = (this.options.size - this.options.strokeWidth) / 2;
@@ -23,8 +23,8 @@ class ProgressCircle {
 
     this.progressArc.style.strokeDasharray = `${this.circumference} ${this.circumference}`;
     this.setValue(this.options.value);
-    this.setAnimated(this.options.isAnimated);
-    this.setHidden(this.options.isHidden);
+    this.setAnimated(this.options.animated);
+    this.setHidden(this.options.hidden);
   }
 
   getTemplate() {
@@ -43,12 +43,12 @@ class ProgressCircle {
         `;
   }
 
-  setValue(value, isAnimated = true) {
+  setValue(value, animated = true) {
     const clampedValue = Math.min(Math.max(value, 0), 100);
     const offset =
       this.circumference - (clampedValue / 100) * this.circumference;
 
-    if (isAnimated) {
+    if (animated) {
       this.animateValueChange(offset);
     } else {
       this.progressArc.style.strokeDashoffset = offset;
