@@ -16,7 +16,7 @@ const progress = new ProgressCircle("#progress-wrapper", {
 
 valueInput.addEventListener("input", (e) => {
   const value = parseFloat(e.target.value);
-  progress.setValue(value, false);
+  progress.setValue(value, true);
 
   progressWrapper.setAttribute("aria-valuenow", value);
 
