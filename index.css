@@ -9,10 +9,11 @@
 :root {
     --accent-color: #3457fc;
     --bg-color: #efefefef;
-    --circle-bg-color: rgba(108, 92, 231, 0.2);
     --input-focus-color: rgba(21, 156, 228, 0.4);
-    --stroke-width: 10;
+    --input-focus-box-shadow: 0 0 0 3px var(--input-focus-color);
     --input-width: 60px;
+    --tooltip-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    --error-box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7)
 }
 
 body {
@@ -34,8 +35,6 @@ body {
     left: 20px;
 }
 
-
-/* Controls */
 .controls {
     display: flex;
     flex-direction: column;
@@ -43,31 +42,27 @@ body {
     width: 200px;
 }
 
-.input-group {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    position: relative;
+.tooltip {
+    padding: 6px 10px;
+    border-radius: 5px;
+    display: none;
+    box-shadow: var(--tooltip-box-shadow);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: opacity;
 }
 
-
-.tooltip {
+.tooltip[role="alert"] {
     position: absolute;
-    bottom: calc(100% + 0.5rem); /* Располагаем над input */
+    bottom: calc(100% + 0.5rem);
     left: calc(var(--input-width) / 2);
     transform: translateX(-50%);
     background-color: red;
     color: white;
-    padding: 6px 10px;
-    border-radius: 5px;
     white-space: nowrap;
-    display: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
-.tooltip::after {
+.tooltip[role="alert"]::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -83,46 +78,47 @@ body {
     opacity: 1;
 }
 
+.error {
+    box-shadow: var(--error-box-shadow);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+}
+
 input {
     width: var(--input-width);
     padding: 8px;
     border: 2px solid #ddd;
     border-radius: 500px;
+    outline: none;
 }
 
-
-input#value {
+#value {
     font-size: 16px;
     text-align: center;
-
-
-    &.error {
-        outline: none;
-        box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7);
-    }
-
-    &:not(.error):focus {
-        outline: none;
-        box-shadow: 0 0 0 3px var(--input-focus-color);
-    }
 }
 
-
-.error {
-    box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7);
+#value.error {
+    box-shadow: var(--error-box-shadow);
 }
 
+#value:not(.error):focus {
+    box-shadow: var(--input-focus-box-shadow);
+}
 
 input#value::-webkit-outer-spin-button,
 input#value::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 input#value {
     -moz-appearance: textfield;
 }
-
-/* Switcher */
 
 .switcher {
     position: relative;
@@ -143,7 +139,7 @@ input#value {
     cursor: pointer;
     inset: 0;
     background-color: #ccc;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 500px;
 }
 
@@ -155,8 +151,9 @@ input#value {
     left: 4px;
     bottom: 4px;
     background-color: white;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 50%;
+    will-change: transform;
 }
 
 .switcher__input:checked + .switcher__slider {
@@ -168,8 +165,10 @@ input#value {
 }
 
 .switcher__input:focus + .switcher__slider {
-    box-shadow: 0 0 0 3px var(--input-focus-color);
+    box-shadow: var(--input-focus-box-shadow);
 }
+
+/* media */
 
 @media (orientation: landscape) {
     body {

@@ -1,4 +1,4 @@
-class ProgressCircle {
+export default class ProgressCircle {
   constructor(selector, options = {}) {
     this.options = {
       size: options.size || 150,
